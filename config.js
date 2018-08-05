@@ -1,6 +1,6 @@
 config = {
 	origins: 'http://localhost:3000',
-	db: 'mongodb://localhost:27017/api5.0',
+	db: 'mongodb://localhost:27017/api50',
 	secret: 'IfIspinaroundclockwiseforsomereason,Ihavetospinaroundcounterclockwiserightawaysoastounwindmyself.',
 }
 

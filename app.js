@@ -3,6 +3,9 @@ const path = require('path')
 const logger = require('morgan')
 const bodyParser = require('body-parser')
 
+const cors = require('cors')
+const helmet = require('helmet')
+const mongoose = require('mongoose')
 const config = require('./config')
 
 const general = require('./routes/general')
@@ -15,6 +18,20 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
 
+// app.use(cors({ origin: config.options }))
+// app.use(helmet())
+
+// Establish Mongodb connection with mongoose
+mongoose.connect(config.db, { useNewUrlParser: true })
+
+const db = mongoose.connection
+db.on('error', console.error.bind(console, 'connection error:'))
+db.once('open', () => {
+	// require('./public/mock/seed.js')
+	console.log('Successfully connected to mongo db!')
+})
+
+// Set routes
 app.use('/', general)
 app.use('/api/v1', apiV1)
 
