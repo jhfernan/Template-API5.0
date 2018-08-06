@@ -1,8 +1,8 @@
 const utilities = {
 	async: fn => (req, res, next) => {
 		Promise
-		.resolve(fn(req, res, next))
-		.catch(next)
+			.resolve(fn(req, res, next))
+			.catch(next)
 	},
 
 	error: (status, message) => {

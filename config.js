@@ -7,14 +7,14 @@ config = {
 if (process.env.NODE_ENV == 'production') {
 	config.db = process.env.MONGODB_URI
 	config.secret = process.env.SECRET
-	config.origins = 'http://localhost:3000 http://localhost:3000'
+	config.origins = process.env.ORIGINS
 }
 
-config.options = function (origin, callback) {
+config.options = (origin, callback) => {
 	if (!origin) {
 		callback(null, true)
 	}
-	if (config.allowedOrigins.includes(origin)) {
+	if (config.origins.includes(origin)) {
 		callback(null, true)
 	} else {
 		callback(new Error('Not allowed by CORS'))

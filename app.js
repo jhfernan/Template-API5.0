@@ -8,18 +8,17 @@ const helmet = require('helmet')
 const mongoose = require('mongoose')
 const config = require('./config')
 
-const general = require('./routes/general')
+const general = require('./routes/app/index')
 const apiV1 = require('./routes/v1/index')
 
 const app = express()
 
+app.use(helmet())
 app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static(path.join(__dirname, 'public')))
-
-// app.use(cors({ origin: config.options }))
-// app.use(helmet())
+app.use(cors({ origin: config.options }))
 
 // Establish Mongodb connection with mongoose
 mongoose.connect(config.db, { useNewUrlParser: true })
