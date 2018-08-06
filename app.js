@@ -48,7 +48,7 @@ app.use((err, req, res, next) => {
 		status: err.status || 500,
 		message: err.message || 'Internal Server Error'
 	}
-	res.status(error.status).send(error.message)
+	res.status(error.status).json({ message: error.message, status: error.status})
 })
 
 module.exports = app
