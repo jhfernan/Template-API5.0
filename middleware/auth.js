@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken')
+
 const config = require('../config')
+const utils = require('./utilities')
 
 const auth = {
 	checkToken: (req, res, next) => {
@@ -8,7 +10,7 @@ const auth = {
 		if (token) {
 			jwt.verify(token, config.secret, (err, decoded) => {
 				if (err) {
-					return res.status(403).send('Token is not valid.')
+					next(utils.error(403, 'Token is not valid.'))
 				}
 				delete decoded.exp
 				delete decoded.iat
@@ -16,7 +18,7 @@ const auth = {
 				next()
 			})
 		} else {
-			return res.status(401).send('No token provided.')
+			next(utils.error(401, 'No token provided.'))
 		}
 	},
 
@@ -24,7 +26,7 @@ const auth = {
 		if (req.decoded.admin) {
 			next()
 		} else {
-			return res.status(403).send('You are not authorized to use that resource.')
+			next(utils.error(401, 'You are not authorized to use that resource.'))
 		}
 	}
 }
