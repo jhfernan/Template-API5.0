@@ -11,14 +11,9 @@ if (process.env.NODE_ENV == 'production') {
 }
 
 config.options = (origin, callback) => {
-	if (!origin) {
-		callback(null, true)
-	}
-	if (config.origins.includes(origin)) {
-		callback(null, true)
-	} else {
-		callback(new Error('Not allowed by CORS'))
-	}
+	!origin || config.origins.includes(origin)
+		? callback(null, true)
+		: callback(new Error('Not allowed by CORS'))
 }
 
 module.exports = config
