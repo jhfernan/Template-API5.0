@@ -12,6 +12,15 @@ const general = require('./routes/app/index')
 const apiV1 = require('./routes/v1/index')
 
 const app = express()
+const server = require('http').Server(app)
+const io = require('socket.io')(server)
+
+io.on('connection', socket => {
+	console.log('a user connected')
+	socket.on('disconnect', () => {
+		console.log('user disconnected')
+	})
+})
 
 app.use(helmet())
 app.use(logger('dev'))
@@ -50,4 +59,4 @@ app.use((err, req, res, next) => {
 	res.status(error.status).json({ message: error.message, status: error.status})
 })
 
-module.exports = app
+module.exports = { app, server }
