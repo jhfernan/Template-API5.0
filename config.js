@@ -7,7 +7,7 @@ config = {
 if (process.env.NODE_ENV == 'production') {
 	config.db = process.env.MONGODB_URI
 	config.secret = process.env.SECRET
-	config.origins = process.env.ORIGINS
+	config.origins = 'https://example-cb-frontend.herokuapp.com/'
 }
 
 config.options = (origin, callback) => {
