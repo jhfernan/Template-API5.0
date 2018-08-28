@@ -22,6 +22,11 @@ io.on('connection', socket => {
 	})
 })
 
+app.use((req, res, next) => {
+	res.io = io
+	next()
+})
+
 app.use(helmet())
 app.use(logger('dev'))
 app.use(bodyParser.json())

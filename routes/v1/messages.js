@@ -5,8 +5,9 @@ const util = require('../../middleware/utilities')
 
 // Get all users
 router.post('/messages', util.async(async (req, res, next) => {
+	console.log(req.body)
 	res.io.emit('newMessage', req.body)
-	res.send('Success')
+	res.json({ message: 'Success' })
 }))
 
 module.exports = router
