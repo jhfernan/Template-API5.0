@@ -5,7 +5,7 @@ const utils = require('./utilities')
 
 const auth = {
 	checkToken: (req, res, next) => {
-		let bearerToken = req.headers.authorization.split(' ')
+		let bearerToken = req.headers.authorization.split(' ') || null
 		let token = bearerToken[1]
 		if (token) {
 			jwt.verify(token, config.secret, (err, decoded) => {
